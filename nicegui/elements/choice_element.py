@@ -10,12 +10,17 @@ class ChoiceElement(ValueElement):
                  options: Union[List, Dict],
                  value: Any,
                  on_change: Optional[Callable[..., Any]] = None,
+                 **kwargs: Any,
                  ) -> None:
         self.options = options
         self._values: List[str] = []
         self._labels: List[str] = []
         self._update_values_and_labels()
-        super().__init__(tag=tag, value=value, on_value_change=on_change)
+        throttle = kwargs.pop('throttle', 0.3)
+        leading_events = kwargs.pop('leading_events', False)
+        trailing_events = kwargs.pop('trailing_events', True)
+        super().__init__(tag=tag, value=value, on_value_change=on_change,
+                         throttle=throttle, leading_events=leading_events, trailing_events=trailing_events, **kwargs)
         self._update_options()
 
     def _update_values_and_labels(self) -> None:

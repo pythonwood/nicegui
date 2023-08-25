@@ -7,11 +7,15 @@ from .mixins.value_element import ValueElement
 
 class Switch(TextElement, ValueElement, DisableableElement):
 
-    def __init__(self, text: str = '', *, value: bool = False, on_change: Optional[Callable[..., Any]] = None) -> None:
+    def __init__(self, text: str = '', *, value: bool = False, on_change: Optional[Callable[..., Any]] = None, **kwargs: Any) -> None:
         """Switch
 
         :param text: the label to display next to the switch
         :param value: whether it should be active initially (default: `False`)
         :param on_change: callback which is invoked when state is changed by the user
         """
-        super().__init__(tag='q-toggle', text=text, value=value, on_value_change=on_change)
+        throttle = kwargs.pop('throttle', 0.3)
+        leading_events = kwargs.pop('leading_events', False)
+        trailing_events = kwargs.pop('trailing_events', True)
+        super().__init__(tag='q-toggle', text=text, value=value, on_value_change=on_change,
+                         throttle=throttle, leading_events=leading_events, trailing_events=trailing_events, **kwargs)
