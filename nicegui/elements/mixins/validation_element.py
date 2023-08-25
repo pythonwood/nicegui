@@ -6,7 +6,10 @@ from .value_element import ValueElement
 class ValidationElement(ValueElement):
 
     def __init__(self, validation: Dict[str, Callable[..., bool]], **kwargs: Any) -> None:
-        super().__init__(**kwargs)
+        throttle = kwargs.pop('throttle', 0.3)
+        leading_events = kwargs.pop('leading_events', False)
+        trailing_events = kwargs.pop('trailing_events', True)
+        super().__init__(throttle=throttle, leading_events=leading_events, trailing_events=trailing_events, **kwargs)
         self.validation = validation
         self._error: Optional[str] = None
 

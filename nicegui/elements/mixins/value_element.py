@@ -17,8 +17,8 @@ class ValueElement(Element):
                  on_value_change: Optional[Callable[..., Any]],
                  # use trailing throttle for value element. for example:
                  # input element should not send each time when user input every char in a word.
-                 throttle: float = 0.5,
-                 leading_events: bool = False,
+                 throttle: float = 0,
+                 leading_events: bool = True,
                  trailing_events: bool = True,
                  **kwargs: Any,
                  ) -> None:
