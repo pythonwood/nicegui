@@ -17,7 +17,7 @@ class ChoiceElement(ValueElement):
         self._labels: List[str] = []
         self._update_values_and_labels()
         throttle = kwargs.pop('throttle', 0.3)
-        leading_events = kwargs.pop('leading_events', False)
+        leading_events = kwargs.pop('leading_events', True)
         trailing_events = kwargs.pop('trailing_events', True)
         super().__init__(tag=tag, value=value, on_value_change=on_change,
                          throttle=throttle, leading_events=leading_events, trailing_events=trailing_events, **kwargs)

@@ -15,7 +15,7 @@ class Switch(TextElement, ValueElement, DisableableElement):
         :param on_change: callback which is invoked when state is changed by the user
         """
         throttle = kwargs.pop('throttle', 0.3)
-        leading_events = kwargs.pop('leading_events', False)
+        leading_events = kwargs.pop('leading_events', True)
         trailing_events = kwargs.pop('trailing_events', True)
         super().__init__(tag='q-toggle', text=text, value=value, on_value_change=on_change,
                          throttle=throttle, leading_events=leading_events, trailing_events=trailing_events, **kwargs)

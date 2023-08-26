@@ -27,9 +27,10 @@ class LinearProgress(ValueElement, TextColorElement):
         :param color: color (either a Quasar, Tailwind, or CSS color or `None`, default: "primary")
         """
         throttle = kwargs.pop('throttle', 0.3)
-        leading_events = kwargs.pop('leading_events', False)
+        leading_events = kwargs.pop('leading_events', True)
         trailing_events = kwargs.pop('trailing_events', True)
-        super().__init__(tag='q-linear-progress', value=value, on_value_change=None, text_color=color, leading_events=leading_events, trailing_events=trailing_events, **kwargs)
+        super().__init__(tag='q-linear-progress', value=value, on_value_change=None, text_color=color,
+                         throttle=throttle, leading_events=leading_events, trailing_events=trailing_events, **kwargs)
         self._props['size'] = size if size is not None else '20px' if show_value else '4px'
 
         if show_value:
