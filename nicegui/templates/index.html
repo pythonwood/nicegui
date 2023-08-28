@@ -89,22 +89,28 @@
           callback();
           return;
         }
+        let l_id = 'leading_'+id;
+        let t_id = 'trailing_'+id;
         // below: if time > 0
         if (leading) {
-          if (!waitingCallbacks.has(id) || Date.now() >= waitingCallbacks.get(id) + 1000 * time) {
-            waitingCallbacks.set(id, Date.now());
+          if (!waitingCallbacks.has(l_id) || Date.now() >= waitingCallbacks.get(l_id) + 1000 * time) {
+            waitingCallbacks.set(l_id, Date.now());
             callback();
-          } else if (!trailing)  // sure now: id in Map and waited time < need time
-            waitingCallbacks.set(id, Date.now());
-          return;
+            return;
+          } else if (!trailing) {  // sure now: id in Map and waited time < need time
+            waitingCallbacks.set(l_id, Date.now());
+            return;
+          }
         }
         // below: if time > 0 and not leading
-        clearTimeout(waitingCallbacks.get(id)??null);
-        waitingCallbacks.set(id,
-          setTimeout(() => {
-            callback();
-          }, 1000 * time)
-        );
+        if (trailing){
+          clearTimeout(waitingCallbacks.get(t_id)??null);
+          waitingCallbacks.set(t_id,
+            setTimeout(() => {
+              callback();
+            }, 1000 * time)
+          );
+        }
       }
 
       function renderRecursively(elements, id) {
